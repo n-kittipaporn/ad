@@ -1,22 +1,64 @@
 <html>
 <head>
     <base href="https://nantiya-dev-main-wap.azurewebsites.net/components/"/>
-    <script type="text/javascript" src="/assets/libs/adal.min.js" defer crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/assets/js/adal.init.js" defer crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/libs/adal.min.js" defer crossorigin="anonymous"></script>    
    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://unpkg.com/formiojs@latest/dist/formio.full.min.css'>    
     <script src="/assets/libs/jquery.min.js"></script>
     <script src="/assets/libs/bootstrap.min.js"></script>
-    <script>
-           
-            $(document).ready(function(){
+
+    <script>  
+    
+    
+    var adalInstance = new AuthenticationContext({
+            instance: 'https://login.microsoftonline.com/',
+            
+            // The client ID of the app from the Azure Portal
+            clientId: '28ee2b74-ad95-4256-9656-406c2d49b41d',
+            
+            // Where do we want to go after logging out
+            postLogoutRedirectUri: window.location.origin, 
+            
+            endpoints: {
+            // The domain of API (requsets are made TO)
+            // And the same client id as above
+            "https://nantiya-dev-main-wap.azurewebsites.net/": "28ee2b74-ad95-4256-9656-406c2d49b41d"       
+            }
+        })
+
+    $(document).ready(function(){
         
-                
-        
-            });
-        
-        
-        </script>
+
+        function authenticateToken() {
+            if (adalInstance.getCachedUser()) {
+                // If we have a cached login, use it
+                return true
+            }
+
+            if (adalInstance.isCallback(window.location.hash)) {
+                // This happens after the AD login screen,
+                // handleWindowCallback will use the hash to
+                // complete the login
+                adalInstance.handleWindowCallback()
+                return true
+            }
+
+            // Not logged in
+            return false
+            }
+
+            if (authenticateToken()) {
+                // User is logged in
+            }
+            else {
+                // Not logged in, go to 401 page?
+                window.location.pathname = '/401.html'
+            }      
+                                
+
+
+    });    
+         </script>
 
 
 </head>
