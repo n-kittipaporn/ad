@@ -8,24 +8,27 @@
     <script src='https://unpkg.com/formiojs@2.17.6/dist/formio.full.min.js'></script>
     <script src="/assets/libs/jquery.min.js"></script>
     <script src="/assets/libs/bootstrap.min.js"></script>
+    <script>
+            alert("aa");
+            $(document).ready(function(){
+        
+                //authenticateToken();
+                $.get('../assets/js/adal.init.js', function(data) {
+                    alert(data);       
+                });
+        
+            });
+        
+        
+        </script>
+
+
 </head>
 <body>
 aaaaaaaaaaaaaaa
 
 
 </body>
-<script>
-    alert("aa");
-    $(document).ready(function(){
 
-        //authenticateToken();
-        $.get('../assets/js/adal.init.js', function(data) {
-            alert(data);       
-        });
-
-    });
-
-
-</script>
 
 </html>
